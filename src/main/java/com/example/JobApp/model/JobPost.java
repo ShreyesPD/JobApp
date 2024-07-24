@@ -18,6 +18,7 @@ public class JobPost {
     private List<String> postTechStack;
     private String location;
     private Integer salaryCTC;
+    private String companyName;
 
     @OneToOne()
     private User employerId;
@@ -29,7 +30,7 @@ public class JobPost {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public JobPost(Integer postId, String postProfile, String postDesc, Integer reqExperience, List<String> postTechStack, String location, Integer salaryCTC, User employer_id) {
+    public JobPost(Integer postId, String postProfile, String postDesc, Integer reqExperience, List<String> postTechStack, String location, Integer salaryCTC, User employer_id,String companyName) {
         this.postId = postId;
         this.postProfile = postProfile;
         this.postDesc = postDesc;
@@ -38,6 +39,7 @@ public class JobPost {
         this.location = location;
         this.salaryCTC = salaryCTC;
         this.employerId = employer_id;
+        this.companyName=companyName;
     }
 
     public JobPost() {
@@ -106,5 +108,21 @@ public class JobPost {
 
     public void setEmployer_id(User employer_id) {
         this.employerId = employer_id;
+    }
+
+    public User getEmployerId() {
+        return employerId;
+    }
+
+    public void setEmployerId(User employerId) {
+        this.employerId = employerId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
