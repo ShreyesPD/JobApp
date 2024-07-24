@@ -2,9 +2,7 @@ package com.example.JobApp.service;
 
 import com.example.JobApp.dto.JobPostDTO;
 import com.example.JobApp.exception.ResourceNotFoundException;
-import com.example.JobApp.model.CategoryJob;
 import com.example.JobApp.model.JobPost;
-import com.example.JobApp.repo.CategoryJobRepo;
 import com.example.JobApp.repo.JobRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,30 +23,11 @@ public class JobService {
     @Autowired
     private JobRepo repo;
 
-    @Autowired
-    private CategoryJobRepo categoryJobRepo;
 
     public JobService(JobRepo jobRepo) {
         this.repo = jobRepo;
     }
 
-    @Transactional
-    public CategoryJob createCategoryAndJob(CategoryJob categoryJob) {
-        List<JobPost> listJobPost = new ArrayList<>();
-        for (JobPost jobPost : categoryJob.getJobPosts()) {
-            JobPost jobPost1 = new JobPost();
-            jobPost1.setPostId(jobPost.getPostId());
-            jobPost1.setPostProfile(jobPost.getPostProfile());
-            jobPost1.setPostDesc(jobPost.getPostDesc());
-            jobPost1.setReqExperience(jobPost.getReqExperience());
-            jobPost1.setPostTechStack(jobPost.getPostTechStack());
-            listJobPost.add(repo.save(jobPost));
-        }
-//        System.out.println(1 / 0);
-        categoryJob.setJobPosts(listJobPost);
-        CategoryJob categoryJob1 = categoryJobRepo.save(categoryJob);
-        return categoryJob1;
-    }
 
     @Transactional
     public JobPostDTO addJob(JobPostDTO jobPostDTO) {
@@ -70,7 +49,7 @@ public class JobService {
         List<JobPost> jobPostList = allPageJobs.getContent();
         List<JobPostDTO> jobPostDTOList = new ArrayList<>();
         if (!jobPostList.isEmpty()) {
-            jobPostList.forEach(e -> jobPostDTOList.add(new JobPostDTO(e.getPostId(), e.getPostProfile(), e.getPostDesc(), e.getReqExperience(), e.getPostTechStack())));
+            jobPostList.forEach(e -> jobPostDTOList.add(new JobPostDTO(e.getPostId(), e.getPostProfile(), e.getPostDesc(), e.getReqExperience(), e.getPostTechStack(),e.getLocation(),e.getSalaryCTC(),e.getEmployer_id())));
             return jobPostDTOList;
         } else {
             throw new ResourceNotFoundException("there are no jobs posted currently!");
@@ -88,7 +67,7 @@ public class JobService {
         List<JobPost> jobPostList = repo.findByPostProfileContainingOrPostDescContaining(keyword, keyword);
         List<JobPostDTO> jobPostDTOList = new ArrayList<>();
         if (!jobPostList.isEmpty()) {
-            jobPostList.forEach(e -> jobPostDTOList.add(new JobPostDTO(e.getPostId(), e.getPostProfile(), e.getPostDesc(), e.getReqExperience(), e.getPostTechStack())));
+            jobPostList.forEach(e -> jobPostDTOList.add(new JobPostDTO(e.getPostId(), e.getPostProfile(), e.getPostDesc(), e.getReqExperience(), e.getPostTechStack(),e.getLocation(),e.getSalaryCTC(),e.getEmployer_id())));
             return jobPostDTOList;
         } else {
             throw new ResourceNotFoundException("there are no jobs posted with this keyword currently!");
@@ -126,5 +105,5 @@ public class JobService {
             throw new ResourceNotFoundException("this job doesn't exists");
         }
     }
-}
 
+}

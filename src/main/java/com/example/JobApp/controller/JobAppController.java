@@ -1,8 +1,6 @@
 package com.example.JobApp.controller;
 
 import com.example.JobApp.dto.JobPostDTO;
-import com.example.JobApp.model.CategoryJob;
-import com.example.JobApp.model.JobPost;
 import com.example.JobApp.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +15,6 @@ public class JobAppController {
 
     @Autowired
     private JobService service;
-
-    @PostMapping("createcategoryandjob")
-    public ResponseEntity<CategoryJob> saveCategoryAndJob(@RequestBody CategoryJob categoryJob) {
-        return new ResponseEntity<>(service.createCategoryAndJob(categoryJob), HttpStatus.CREATED);
-    }
 
     @PostMapping("createJob")
     public ResponseEntity<JobPostDTO> success(@RequestBody JobPostDTO jobPostDTO) {

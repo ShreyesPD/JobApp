@@ -1,19 +1,13 @@
 package com.example.JobApp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
-//@Data
-//@Component
 @Entity
+@Table(name = "jobpost")
 public class JobPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,32 +16,33 @@ public class JobPost {
     private String postDesc;
     private Integer reqExperience;
     private List<String> postTechStack;
+    private String location;
+    private Integer salaryCTC;
 
-    public JobPost(Integer postId, String postProfile, String postDesc, Integer reqExperience, List<String> postTechStack) {
+    @OneToOne()
+    private User employerId;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    @Column(nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+
+    public JobPost(Integer postId, String postProfile, String postDesc, Integer reqExperience, List<String> postTechStack, String location, Integer salaryCTC, User employer_id) {
         this.postId = postId;
         this.postProfile = postProfile;
         this.postDesc = postDesc;
         this.reqExperience = reqExperience;
         this.postTechStack = postTechStack;
+        this.location = location;
+        this.salaryCTC = salaryCTC;
+        this.employerId = employer_id;
     }
 
     public JobPost() {
 
     }
-
-
-//    public JobPost(Integer postId){
-//        this.postId= postId;
-//    }
-
-//    public <E> JobPost(int i, String profile, String s, int i1, List<String> es) {
-//        postId = i;
-//        postProfile = profile;
-//        postDesc = s;
-//        reqExperience = i1;
-//        postTechStack = es;
-//    }
-
 
     public Integer getPostId() {
         return postId;
@@ -89,4 +84,27 @@ public class JobPost {
         this.postTechStack = postTechStack;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Integer getSalaryCTC() {
+        return salaryCTC;
+    }
+
+    public void setSalaryCTC(Integer salaryCTC) {
+        this.salaryCTC = salaryCTC;
+    }
+
+    public User getEmployer_id() {
+        return employerId;
+    }
+
+    public void setEmployer_id(User employer_id) {
+        this.employerId = employer_id;
+    }
 }
