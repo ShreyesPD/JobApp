@@ -23,11 +23,9 @@ public class JobService {
     @Autowired
     private JobRepo repo;
 
-
     public JobService(JobRepo jobRepo) {
         this.repo = jobRepo;
     }
-
 
     @Transactional
     public JobPostDTO addJob(JobPostDTO jobPostDTO) {

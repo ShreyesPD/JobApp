@@ -1,10 +1,8 @@
 package com.example.JobApp.model;
 
-
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 import java.time.LocalDateTime;
 
@@ -17,7 +15,7 @@ public class User {
     private String userName;
     private String password;
     private String email;
-    private Role role;
+    private String role;
 
     @OneToOne(mappedBy = "employerId")
     private JobPost jobPost;
@@ -29,7 +27,7 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public User(Integer userId, String userName, String password, String email, Role role) {
+    public User(Integer userId, String userName, String password, String email, String role) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -38,7 +36,6 @@ public class User {
     }
 
     public User(){
-
     }
 
     public Integer getUserId() {
@@ -73,11 +70,11 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

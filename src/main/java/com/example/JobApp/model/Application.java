@@ -20,7 +20,7 @@ public class Application {
     @OneToOne
     private User applicantId;
 
-    private Status status;
+    private String status;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -30,7 +30,7 @@ public class Application {
     private LocalDateTime updatedAt;
 
 
-    public Application(Integer app_id, JobPost jobId, User applicantId, Status status) {
+    public Application(Integer app_id, JobPost jobId, User applicantId, String status) {
         this.app_id = app_id;
         this.jobId = jobId;
         this.applicantId = applicantId;
@@ -65,11 +65,11 @@ public class Application {
         this.applicantId = applicantId;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
